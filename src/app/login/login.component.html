@@ -1,0 +1,10 @@
+<form id="loginForm"[formGroup]="loginForm">
+  <label>Email address</label>
+  <input type="email" formControlName="email" id="email">
+  <label>Password</label>
+  <input type="password" formControlName="password" id="password">
+  <button type="submit" id="loginButton" (click)="tryLogin(loginForm.value)">Login</button>
+</form>
+<label *ngIf="errorMessage" class="error">{{errorMessage}}</label>
+<p>No account yet? <a href="/register">Create an account</a></p>
+

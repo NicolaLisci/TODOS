@@ -1,0 +1,10 @@
+<form id="registerForm" [formGroup]="registerForm">
+  <label>Email address</label>
+  <input type="email" formControlName="email" class="form-control" id="email">
+  <label>Password</label>
+  <input type="password" id="password" class="form-control" formControlName="password">
+  <button id="registerButton" type="submit" (click)="tryRegister(registerForm.value)">Register</button>
+</form>
+<label *ngIf="errorMessage" class="error">{{errorMessage}}</label>
+<label *ngIf="successMessage" class="success">{{successMessage}}</label>
+<p>Already have an account? <a href="/login">Login</a></p>

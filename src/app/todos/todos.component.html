@@ -1,0 +1,36 @@
+<header>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <div id="header">
+    <h1>
+      TODOs
+    </h1>
+    <h1 *ngIf="email">{{email}}</h1>
+    <button id="logoutButton" *ngIf="email" type="button" (click)="logout()" class="btn btn-link">Logout</button>
+  </div>
+</header>
+<main>
+  <form #addForm="ngForm">
+    <input type="text" [(ngModel)]="description" name="description" placeholder="Cosa devo fare ...">
+    <button type="submit" (click)="addTodo(); addForm.reset()"> Aggiungi Todo</button>
+  </form>
+  <ul>
+    <li *ngFor="let todo of todos | async; let i = index">
+      <input [checked]="todo.data.done" type="checkbox" (change)="updateTodo(todo.id, $event)" required="required">
+      <b id="{{i}}" [style.color]="todo.data.color" [class.done]="todo.data.done">{{todo.data.description}}</b>
+      <ng-template #colors>
+        <a (click)="todo.data.color = '#80edAA'; updateColor(todo.id, todo.color='#80edAA')">
+          <i class="fas fa-circle fa-2x" style="color: #80edAA"></i></a>
+        <a (click)="todo.data.color = '#ff6666'; updateColor(todo.id,todo.color='#ff6666')">
+          <i class="fas fa-circle fa-2x" style="color:#ff6666"></i></a>
+        <a (click)="todo.data.color = '#fdf2a4'; updateColor(todo.id,todo.color='#fdf2a4')">
+          <i class="fas fa-circle fa-2x" style="color:#fdf2a4"></i></a>
+      </ng-template>
+      <a *ngIf="todo.data.done; else colors" (click)="removeTodo(todo.id)">
+        <i class="fas fa-trash fa-lg" style="color:#95aeca"></i></a>
+    </li>
+  </ul>
+  <p>Already have an account? <a routerLink="/login">Login</a></p>
+  <router-outlet></router-outlet>
+</main>
+
